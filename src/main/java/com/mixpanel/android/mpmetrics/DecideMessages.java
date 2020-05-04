@@ -211,6 +211,15 @@ import java.util.Set;
         return null;
     }
 
+    public synchronized void markNotificationShown(InAppNotification notification) {
+        for (int i = 0; i < mUnseenNotifications.size(); i++) {
+            if (mUnseenNotifications.get(i).getId() == notification.getId()) {
+                mUnseenNotifications.remove(i);
+                break;
+            }
+        }
+    }
+
     public synchronized Set<String> getIntegrations() { return mIntegrations; }
 
     // if a notification was failed to show, add it back to the unseen list so that we
