@@ -169,6 +169,10 @@ import java.util.Set;
         return n;
     }
 
+    public synchronized List<InAppNotification> getNotifications() {
+        return mUnseenNotifications;
+    }
+
     public synchronized InAppNotification getNotification(int id, boolean replace) {
         InAppNotification notif = null;
         for (int i = 0; i < mUnseenNotifications.size(); i++) {
@@ -187,10 +191,21 @@ import java.util.Set;
         for (int i = 0; i < mUnseenEventTriggeredNotifications.size(); i ++) {
             final InAppNotification n = mUnseenEventTriggeredNotifications.get(i);
             if (n.matchesEventDescription(eventDescription)) {
-                if (!replace) {
-                    mUnseenEventTriggeredNotifications.remove(i);
+                // Check if the triggered notification is already in the unseen notification array
+                InAppNotification matchingNotification = null;
+                for (int j = 0; j < mUnseenNotifications.size(); j++) {
+                    final InAppNotification unseenNotification = mUnseenNotifications.get(i);
+                    // If so assign var to notification and break out loop
+                    if (n.getId() == unseenNotification.getId()) {
+                        matchingNotification = unseenNotification;
+                        break;
+                    }
                 }
-                return n;
+                // If there are no matching notifications, add the triggered notification to the unseen notifications array
+                if (matchingNotification == null) {
+                    mUnseenNotifications.add(n);
+                }
+                return null;
             }
         }
         return null;

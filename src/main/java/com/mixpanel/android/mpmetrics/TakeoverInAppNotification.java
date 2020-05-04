@@ -11,6 +11,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Represents a takeover in-app notification delivered from Mixpanel. Under ordinary circumstances,
@@ -75,6 +76,10 @@ public class TakeoverInAppNotification extends InAppNotification {
 
     public int getNumButtons() {
         return mButtons.size();
+    }
+
+    public List<InAppButton> getButtons() {
+        return mButtons;
     }
 
     public boolean setShouldShowShadow() {

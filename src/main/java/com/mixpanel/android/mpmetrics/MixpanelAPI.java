@@ -1717,6 +1717,8 @@ public class MixpanelAPI {
          */
         public InAppNotification getNotificationIfAvailable();
 
+        public List<InAppNotification> getNotifications();
+
         /**
          * Tells MixPanel that you have handled an {@link com.mixpanel.android.mpmetrics.InAppNotification}
          * in the case where you are manually dealing with your notifications ({@link People#getNotificationIfAvailable()}).
@@ -2255,6 +2257,10 @@ public class MixpanelAPI {
         @Override
         public InAppNotification getNotificationIfAvailable() {
             return mDecideMessages.getNotification(mConfig.getTestMode());
+        }
+
+        @Override public List<InAppNotification> getNotifications() {
+            return mDecideMessages.getNotifications();
         }
 
         @Override
