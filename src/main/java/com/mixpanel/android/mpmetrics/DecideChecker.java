@@ -108,8 +108,8 @@ import javax.net.ssl.SSLSocketFactory;
             final Bitmap image = getNotificationImage(notification, mContext);
             if (null == image) {
                 MPLog.i(LOGTAG, "Could not retrieve image for notification " + notification.getId() +
-                        ", will not show the notification.");
-                notificationIterator.remove();
+                        ", will still show the notification.");
+//                notificationIterator.remove();
             } else {
                 notification.setImage(image);
             }

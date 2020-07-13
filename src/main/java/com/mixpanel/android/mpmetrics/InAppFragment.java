@@ -8,6 +8,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -209,9 +210,13 @@ public class InAppFragment extends Fragment {
                 mInAppView.setBackground(viewBackground);
             }
 
-            Drawable myIcon = new BitmapDrawable(getResources(), mDisplayState.getInAppNotification().getImage());
-            myIcon.setColorFilter(inApp.getImageTintColor(), PorterDuff.Mode.SRC_ATOP);
-            notifImage.setImageDrawable(myIcon);
+            Bitmap image = mDisplayState.getInAppNotification().getImage();
+
+            if (image != null) {
+                Drawable myIcon = new BitmapDrawable(getResources(), mDisplayState.getInAppNotification().getImage());
+                myIcon.setColorFilter(inApp.getImageTintColor(), PorterDuff.Mode.SRC_ATOP);
+                notifImage.setImageDrawable(myIcon);
+            }
         }
 
         return mInAppView;
